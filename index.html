@@ -531,6 +531,182 @@
             margin-top: 8px;
         }
 
+        .game-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding-bottom: 30px;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .game-kitty {
+            font-size: 55px;
+            margin-bottom: 15px;
+            animation: bounce 1s infinite;
+        }
+
+        .game-title {
+            font-size: 32px;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-subtitle {
+            font-size: 18px;
+            color: #fbbf24;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .game-card {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .game-card:hover:not(.flipped):not(.matched) {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .game-card.flipped, .game-card.matched {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #ec4899;
+        }
+
+        .game-card.matched {
+            animation: matchPulse 0.5s;
+        }
+
+        @keyframes matchPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .card-back {
+            font-size: 32px;
+        }
+
+        .card-front {
+            display: none;
+        }
+
+        .game-card.flipped .card-back,
+        .game-card.matched .card-back {
+            display: none;
+        }
+
+        .game-card.flipped .card-front,
+        .game-card.matched .card-front {
+            display: block;
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .reset-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.6);
+        }
+
+        .reset-btn:active {
+            transform: scale(0.98);
+        }
+
+        .win-message {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 3px solid #ec4899;
+            animation: fadeIn 0.5s;
+        }
+
+        .win-message.show {
+            display: block;
+        }
+
+        .win-message h3 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .win-message p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .win-emoji {
+            font-size: 50px;
+            margin: 15px 0;
+        }
+
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
@@ -583,6 +759,12 @@
                 <div class="menu-card-icon">🎵</div>
                 <h3 class="menu-card-title">Our Playlist</h3>
                 <p class="menu-card-desc">Songs dedicated to you</p>
+            </div>
+
+            <div class="menu-card" onclick="showScreen('game')">
+                <div class="menu-card-icon">🎮</div>
+                <h3 class="menu-card-title">Memory Game</h3>
+                <p class="menu-card-desc">Match the hearts & have fun</p>
             </div>
         </div>
     </div>
@@ -759,7 +941,48 @@ Sayed Asif</div>
         </div>
     </div>
 
+    <div id="game" class="screen">
+        <button class="back-btn" onclick="showScreen('menu')">✕</button>
+        <div class="game-container">
+            <div class="game-header">
+                <div class="game-kitty">🎮😺</div>
+                <h2 class="game-title">Love Memory Game</h2>
+                <p class="game-subtitle">Match the pairs & win!</p>
+            </div>
+
+            <div class="win-message" id="winMessage">
+                <h3>Congratulations! 🎉</h3>
+                <div class="win-emoji">😻💝</div>
+                <p>You found all the matches!<br>You're amazing, just like always! ❤️</p>
+            </div>
+
+            <div class="game-stats">
+                <div class="stat-item">
+                    <div class="stat-label">Moves</div>
+                    <div class="stat-value" id="moves">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Matches</div>
+                    <div class="stat-value" id="matches">0/8</div>
+                </div>
+            </div>
+
+            <div class="game-board" id="gameBoard"></div>
+
+            <button class="reset-btn" onclick="resetGame()">🔄 New Game</button>
+        </div>
+    </div>
+
     <script>
+        // Game variables
+        let cards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+        let canFlip = true;
+
+        const emojis = ['💕', '💖', '💗', '💓', '💝', '💘', '💞', '❤️'];
+
         // Create floating hearts
         function createFloatingHearts() {
             const container = document.getElementById('floatingHearts');
@@ -781,6 +1004,100 @@ Sayed Asif</div>
             const screens = document.querySelectorAll('.screen');
             screens.forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
+            
+            // Initialize game when game screen is shown
+            if (screenId === 'game' && cards.length === 0) {
+                initGame();
+            }
+        }
+
+        // Initialize game
+        function initGame() {
+            const gameBoard = document.getElementById('gameBoard');
+            gameBoard.innerHTML = '';
+            cards = [];
+            flippedCards = [];
+            matchedPairs = 0;
+            moves = 0;
+            canFlip = true;
+            
+            // Create pairs
+            const cardEmojis = [...emojis, ...emojis];
+            cardEmojis.sort(() => Math.random() - 0.5);
+            
+            cardEmojis.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.dataset.emoji = emoji;
+                card.dataset.index = index;
+                card.innerHTML = `
+                    <div class="card-back">❓</div>
+                    <div class="card-front">${emoji}</div>
+                `;
+                card.onclick = () => flipCard(card);
+                gameBoard.appendChild(card);
+                cards.push(card);
+            });
+            
+            updateStats();
+            document.getElementById('winMessage').classList.remove('show');
+        }
+
+        // Flip card
+        function flipCard(card) {
+            if (!canFlip || card.classList.contains('flipped') || card.classList.contains('matched')) {
+                return;
+            }
+            
+            card.classList.add('flipped');
+            flippedCards.push(card);
+            
+            if (flippedCards.length === 2) {
+                canFlip = false;
+                moves++;
+                updateStats();
+                
+                setTimeout(() => {
+                    checkMatch();
+                }, 600);
+            }
+        }
+
+        // Check for match
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.emoji === card2.dataset.emoji) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                updateStats();
+                
+                if (matchedPairs === emojis.length) {
+                    setTimeout(() => {
+                        document.getElementById('winMessage').classList.add('show');
+                    }, 500);
+                }
+            } else {
+                setTimeout(() => {
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                }, 400);
+            }
+            
+            flippedCards = [];
+            canFlip = true;
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('moves').textContent = moves;
+            document.getElementById('matches').textContent = `${matchedPairs}/${emojis.length}`;
+        }
+
+        // Reset game
+        function resetGame() {
+            initGame();
         }
 
         // Initialize
