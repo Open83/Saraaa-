@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saraaaa's❤️ Gift 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 20px;
+            opacity: 0.3;
+            animation: floatUp 15s infinite ease-in;
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: -50px;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                bottom: 110vh;
+                transform: translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #welcome.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .welcome-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .welcome-emoji {
+            font-size: 80px;
+            animation: pulse 2s infinite;
+            filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.6));
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .welcome-title {
+            font-size: 42px;
+            color: #fff;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-subtitle {
+            font-size: 20px;
+            color: #fbbf24;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .kitty-welcome {
+            font-size: 50px;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            color: white;
+            border: none;
+            padding: 16px 45px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(236, 72, 153, 0.6);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+
+        .menu-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .menu-title {
+            font-size: 32px;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-subtitle {
+            font-size: 18px;
+            color: #fbbf24;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .kitty-menu {
+            font-size: 45px;
+            margin-bottom: 15px;
+            animation: wave 1.5s infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-20deg); }
+            75% { transform: rotate(20deg); }
+        }
+
+        .menu-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-card:active {
+            transform: scale(0.98);
+        }
+
+        .menu-card-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+        }
+
+        .menu-card-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .menu-card-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .back-btn:active {
+            transform: scale(0.9);
+        }
+
+        .letter-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+        }
+
+        .letter-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(236, 72, 153, 0.3);
+        }
+
+        .letter-hearts {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .letter-hearts span {
+            font-size: 24px;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        .letter-kitty {
+            text-align: center;
+            font-size: 45px;
+            margin-bottom: 15px;
+            animation: spin 3s infinite;
+        }
+
+        @keyframes spin {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(360deg); }
+        }
+
+        .letter-title {
+            font-size: 32px;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .letter-content {
+            color: #333;
+            line-height: 1.9;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .letter-signature {
+            text-align: right;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            white-space: pre-line;
+            font-size: 17px;
+        }
+
+        .letter-footer {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .letter-footer span {
+            font-size: 22px;
+            animation: bounce 1s infinite;
+        }
+
+        .letter-footer span:nth-child(2) { animation-delay: 0.2s; }
+        .letter-footer span:nth-child(3) { animation-delay: 0.4s; }
+        .letter-footer span:nth-child(4) { animation-delay: 0.6s; }
+
+        .moments-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .moments-title {
+            font-size: 32px;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .moments-subtitle {
+            font-size: 18px;
+            color: #fbbf24;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .moment-card {
+            perspective: 1000px;
+            height: 180px;
+            margin-bottom: 18px;
+        }
+
+        .moment-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .moment-card.flipped .moment-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .moment-front, .moment-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .moment-front {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .moment-back {
+            background: rgba(255, 255, 255, 0.95);
+            transform: rotateY(180deg);
+            border: 3px solid;
+        }
+
+        .moment-back.bg-yellow { border-color: #fbbf24; }
+        .moment-back.bg-pink { border-color: #ec4899; }
+        .moment-back.bg-blue { border-color: #3b82f6; }
+        .moment-back.bg-purple { border-color: #a855f7; }
+
+        .moment-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .moment-hint {
+            font-size: 14px;
+            color: #fbbf24;
+            margin-top: 10px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .moment-back-text {
+            font-size: 17px;
+            color: #333;
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        .moment-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .playlist-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .playlist-kitty {
+            font-size: 55px;
+            margin-bottom: 15px;
+            animation: dance 1s infinite;
+        }
+
+        @keyframes dance {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .playlist-title {
+            font-size: 32px;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .playlist-subtitle {
+            font-size: 18px;
+            color: #fbbf24;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .song-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .song-card:hover {
+            transform: translateX(8px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .song-content {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .song-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4);
+        }
+
+        .song-info {
+            flex: 1;
+        }
+
+        .song-info h3 {
+            font-size: 17px;
+            color: #fff;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .song-info p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .song-quote {
+            font-size: 12px;
+            color: #fbbf24;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @media (max-width: 768px) {
+            .welcome-content { padding: 40px 25px; }
+            .welcome-emoji { font-size: 70px; }
+            .welcome-title { font-size: 36px; }
+            .welcome-subtitle { font-size: 18px; }
+            .kitty-welcome { font-size: 45px; }
+            .btn-primary { padding: 14px 40px; font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <div id="welcome" class="screen active">
+        <div class="welcome-content">
+            <div class="kitty-welcome">😺</div>
+            <div class="welcome-emoji">💝</div>
+            <h1 class="welcome-title">Hello Saraaaa❤️</h1>
+            <p class="welcome-subtitle">Something Special for You ♥</p>
+            <button class="btn-primary" onclick="showScreen('menu')">Open Gift 🎁</button>
+        </div>
+    </div>
+
+    <div id="menu" class="screen">
+        <div class="menu-container">
+            <div class="menu-header">
+                <div class="kitty-menu">🐱</div>
+                <h1 class="menu-title">Huii, Meri Bacchiii❤️</h1>
+                <p class="menu-subtitle">Choose Your Adventure</p>
+            </div>
+
+            <div class="menu-card" onclick="showScreen('letter')">
+                <div class="menu-card-icon">💌</div>
+                <h3 class="menu-card-title">Love Letter</h3>
+                <p class="menu-card-desc">Words straight from my heart</p>
+            </div>
+
+            <div class="menu-card" onclick="showScreen('moments')">
+                <div class="menu-card-icon">✨</div>
+                <h3 class="menu-card-title">Flip the Feelings</h3>
+                <p class="menu-card-desc">Discover hidden emotions</p>
+            </div>
+
+            <div class="menu-card" onclick="showScreen('playlist')">
+                <div class="menu-card-icon">🎵</div>
+                <h3 class="menu-card-title">Our Playlist</h3>
+                <p class="menu-card-desc">Songs dedicated to you</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="letter" class="screen">
+        <button class="back-btn" onclick="showScreen('menu')">✕</button>
+        <div class="letter-container">
+            <div class="letter-card">
+                <div class="letter-kitty">😻</div>
+                <div class="letter-hearts">
+                    <span>💕</span>
+                    <span>💕</span>
+                </div>
+                <h2 class="letter-title">To My KuchuPuchu</h2>
+                <div class="letter-content">Saraaaa❤️
+Kabhi kabhi sochta hoon zindagi itni ajeeb kyu hai
+Hazaron log milte hain par ek hi insaan dil ke andar ghar bana leta hai
+Aur mere liye woh tum ho
+
+Tumhe jaanna tumse baat karna tumhari har chhoti si aadat observe karna
+Sab kuch ek peaceful feeling deta hai
+Tumhari presence meri life mein ek balance laati hai
+Jaise har cheez apni jagah par theek lagti hai jab tum hoti ho
+
+Mujhe nahi pata kya naam doon is connection ko
+Par mujhe bas itna samajh aaya hai ki tum meri calmness bhi ho aur meri madness bhi
+Tum meri smile ke peeche ka reason ho aur mere sukoon ka source bhi
+
+Main blessed feel karta hoon tumhe jaankar tumhe feel karke
+Tumhari energy tumhara nature tumhara way of being sab kuch real aur rare lagta hai
+Tumhara hona meri life ko sense deta hai
+Aur shayad isi liye tum mere liye sirf ek insaan nahi
+Ek emotion ban gayi ho
+
+Mujhe kuch prove nahi karna tumhe
+Bas yeh kehna hai ki tum meri zindagi ka sabse khoobsurat hissa ho
+Aur mai grateful ho Allah ka jinhone tumhe meri life mein bheja
+Tum meri prayer ka woh answer ho jiska mujhe andaza bhi nahi tha
+
+Saraaaa❤️
+Tum meri zindagi ka sabse real feeling ho
+Aur mai har din yeh mehsoos karta hoon
+Ki mujhe tum mil gayi isse zyada kuch chahiye hi nahi
+<br><br>
+I Lykeeeeeeeeeeeeeeeee Uuuuuuuuuuuuuuuuuuuuuuuuuhhhhhhhhhhhhhhhhhhhhhh Meri Jaaaaaaaaaaaaaaaaaaaaaaaannnnnnnnnnnnnn❤️💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋</div>
+                <div class="letter-signature">With all my love,
+Yours sincerely,
+Sayed Asif</div>
+                <div class="letter-footer">
+                    <span>💕</span>
+                    <span>💜</span>
+                    <span>💕</span>
+                    <span>😽</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="moments" class="screen">
+        <button class="back-btn" onclick="showScreen('menu')">✕</button>
+        <div class="menu-container">
+            <div class="moments-header">
+                <div class="kitty-menu">🐈</div>
+                <h2 class="moments-title">Special Moments</h2>
+                <p class="moments-subtitle">Tap to flip & discover ✨</p>
+            </div>
+
+            <div class="moment-card" onclick="this.classList.toggle('flipped')">
+                <div class="moment-card-inner">
+                    <div class="moment-front">
+                        <div class="moment-icon">😸</div>
+                        <p class="moment-text">Tum meri heartbeat ho</p>
+                        <p class="moment-hint">Tap to flip! 👆</p>
+                    </div>
+                    <div class="moment-back bg-yellow">
+                        <p class="moment-back-text">Jab tumhare baare mein sochta hoon to lagta hai jaise saansein bhi tumhare naam se chalti hain</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="moment-card" onclick="this.classList.toggle('flipped')">
+                <div class="moment-card-inner">
+                    <div class="moment-front">
+                        <div class="moment-icon">😻</div>
+                        <p class="moment-text">Tumhe dekhkar har baar dil ruk jaata hai</p>
+                        <p class="moment-hint">Tap to flip! 👆</p>
+                    </div>
+                    <div class="moment-back bg-pink">
+                        <p class="moment-back-text">Tumhari aankhon mein wo sukoon hai jo poori duniya milkar bhi nahi de sakti</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="moment-card" onclick="this.classList.toggle('flipped')">
+                <div class="moment-card-inner">
+                    <div class="moment-front">
+                        <div class="moment-icon">😽</div>
+                        <p class="moment-text">Tum meri rooh ke itne kareeb ho</p>
+                        <p class="moment-hint">Tap to flip! 👆</p>
+                    </div>
+                    <div class="moment-back bg-blue">
+                        <p class="moment-back-text">Jaise tumhe chhoone se pehle hi dil tumhe mehsoos kar leta hai</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="moment-card" onclick="this.classList.toggle('flipped')">
+                <div class="moment-card-inner">
+                    <div class="moment-front">
+                        <div class="moment-icon">🐱</div>
+                        <p class="moment-text">Tum meri unsaid lines ho</p>
+                        <p class="moment-hint">Tap to flip! 👆</p>
+                    </div>
+                    <div class="moment-back bg-purple">
+                        <p class="moment-back-text">Jo shabd kabhi keh nahi paata wahi tumhare aas paas rehkar apne aap likh jaate hain</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="playlist" class="screen">
+        <button class="back-btn" onclick="showScreen('menu')">✕</button>
+        <div class="menu-container">
+            <div class="playlist-header">
+                <div class="playlist-kitty">🎧😺</div>
+                <h2 class="playlist-title">Playlist For You</h2>
+                <p class="playlist-subtitle">Songs dedicated to u</p>
+            </div>
+
+            <div class="song-card">
+                <div class="song-content">
+                    <div class="song-icon">🎵</div>
+                    <div class="song-info">
+                        <h3>If the world was ending</h3>
+                        <p>JP Saxe & Julia Michaels</p>
+                    </div>
+                </div>
+                <div class="song-quote">"If the world was ending, I'd wanna be next to you"</div>
+            </div>
+
+            <div class="song-card">
+                <div class="song-content">
+                    <div class="song-icon">🎵</div>
+                    <div class="song-info">
+                        <h3>Perfect</h3>
+                        <p>Ed Sheeran</p>
+                    </div>
+                </div>
+                <div class="song-quote">"I found a love, for me"</div>
+            </div>
+
+            <div class="song-card">
+                <div class="song-content">
+                    <div class="song-icon">🎵</div>
+                    <div class="song-info">
+                        <h3>All of Me</h3>
+                        <p>John Legend</p>
+                    </div>
+                </div>
+                <div class="song-quote">"Cause all of me loves all of you"</div>
+            </div>
+
+            <div class="song-card">
+                <div class="song-content">
+                    <div class="song-icon">🎵</div>
+                    <div class="song-info">
+                        <h3>Until I Found You</h3>
+                        <p>Stephen Sanchez</p>
+                    </div>
+                </div>
+                <div class="song-quote">"I would never fall in love again until I found her"</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const hearts = ['💕', '💖', '💗', '💓', '💝'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Screen navigation
+        function showScreen(screenId) {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        // Initialize
+        createFloatingHearts();
+    </script>
+</body>
+</html>
