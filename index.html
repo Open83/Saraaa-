@@ -3,55 +3,966 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Letter & Game</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <title>Saraaaa's❤️ Gift 💝</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            font-size: 20px;
+            opacity: 0.3;
+            animation: floatUp 15s infinite ease-in;
+        }
+
+        @keyframes floatUp {
+            0% {
+                bottom: -50px;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                bottom: 110vh;
+                transform: translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #welcome.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .welcome-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .welcome-emoji {
+            font-size: 80px;
+            animation: pulse 2s infinite;
+            filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.6));
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .welcome-title {
+            font-size: 42px;
+            color: #fff;
+            font-weight: bold;
+            margin: 20px 0 10px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-subtitle {
+            font-size: 20px;
+            color: #fbbf24;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .kitty-welcome {
+            font-size: 50px;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            color: white;
+            border: none;
+            padding: 16px 45px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(236, 72, 153, 0.6);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.95);
+        }
+
+        .menu-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        .menu-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .menu-title {
+            font-size: 32px;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-subtitle {
+            font-size: 18px;
+            color: #fbbf24;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .kitty-menu {
+            font-size: 45px;
+            margin-bottom: 15px;
+            animation: wave 1.5s infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-20deg); }
+            75% { transform: rotate(20deg); }
+        }
+
+        .menu-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .menu-card:active {
+            transform: scale(0.98);
+        }
+
+        .menu-card-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+        }
+
+        .menu-card-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .menu-card-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .back-btn:active {
+            transform: scale(0.9);
+        }
+
+        .letter-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+            overflow-x: hidden;
+        }
+
+        .letter-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 35px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 3px solid rgba(236, 72, 153, 0.3);
+            overflow: hidden;
+        }
+
+        .letter-hearts {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .letter-hearts span {
+            font-size: 24px;
+            animation: heartBeat 1.5s infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        .letter-kitty {
+            text-align: center;
+            font-size: 45px;
+            margin-bottom: 15px;
+            animation: spin 3s infinite;
+        }
+
+        @keyframes spin {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(360deg); }
+        }
+
+        .letter-title {
+            font-size: 32px;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .letter-content {
+            color: #333;
+            line-height: 1.9;
+            font-size: 16px;
+            margin-bottom: 25px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .letter-signature {
+            text-align: right;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+            white-space: pre-line;
+            font-size: 17px;
+        }
+
+        .letter-footer {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .letter-footer span {
+            font-size: 22px;
+            animation: bounce 1s infinite;
+        }
+
+        .letter-footer span:nth-child(2) { animation-delay: 0.2s; }
+        .letter-footer span:nth-child(3) { animation-delay: 0.4s; }
+        .letter-footer span:nth-child(4) { animation-delay: 0.6s; }
+
+        .moments-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .moments-title {
+            font-size: 32px;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .moments-subtitle {
+            font-size: 18px;
+            color: #fbbf24;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .moment-card {
+            perspective: 1000px;
+            height: 180px;
+            margin-bottom: 18px;
+        }
+
+        .moment-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .moment-card.flipped .moment-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .moment-front, .moment-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .moment-front {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .moment-back {
+            background: rgba(255, 255, 255, 0.95);
+            transform: rotateY(180deg);
+            border: 3px solid;
+        }
+
+        .moment-back.bg-yellow { border-color: #fbbf24; }
+        .moment-back.bg-pink { border-color: #ec4899; }
+        .moment-back.bg-blue { border-color: #3b82f6; }
+        .moment-back.bg-purple { border-color: #a855f7; }
+
+        .moment-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #fff;
+            text-align: center;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .moment-hint {
+            font-size: 14px;
+            color: #fbbf24;
+            margin-top: 10px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .moment-back-text {
+            font-size: 17px;
+            color: #333;
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        .moment-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+        }
+
+        .playlist-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .playlist-kitty {
+            font-size: 55px;
+            margin-bottom: 15px;
+            animation: dance 1s infinite;
+        }
+
+        @keyframes dance {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .playlist-title {
+            font-size: 32px;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .playlist-subtitle {
+            font-size: 18px;
+            color: #fbbf24;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .song-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .song-card:hover {
+            transform: translateX(8px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .song-content {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .song-icon {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4);
+        }
+
+        .song-info {
+            flex: 1;
+        }
+
+        .song-info h3 {
+            font-size: 17px;
+            color: #fff;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .song-info p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .song-quote {
+            font-size: 12px;
+            color: #fbbf24;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        .game-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding-bottom: 30px;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .game-kitty {
+            font-size: 55px;
+            margin-bottom: 15px;
+            animation: bounce 1s infinite;
+        }
+
+        .game-title {
+            font-size: 32px;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-subtitle {
+            font-size: 18px;
+            color: #fbbf24;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .game-card {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .game-card:hover:not(.flipped):not(.matched) {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .game-card.flipped, .game-card.matched {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: #ec4899;
+        }
+
+        .game-card.matched {
+            animation: matchPulse 0.5s;
+        }
+
+        @keyframes matchPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .card-back {
+            font-size: 32px;
+        }
+
+        .card-front {
+            display: none;
+        }
+
+        .game-card.flipped .card-back,
+        .game-card.matched .card-back {
+            display: none;
+        }
+
+        .game-card.flipped .card-front,
+        .game-card.matched .card-front {
+            display: block;
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .reset-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.6);
+        }
+
+        .reset-btn:active {
+            transform: scale(0.98);
+        }
+
+        .win-message {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 3px solid #ec4899;
+            animation: fadeIn 0.5s;
+        }
+
+        .win-message.show {
+            display: block;
+        }
+
+        .win-message h3 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #ec4899, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .win-message p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .win-emoji {
+            font-size: 50px;
+            margin: 15px 0;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+                    @media (max-width: 768px) {
+            .welcome-content { padding: 40px 25px; }
+            .welcome-emoji { font-size: 70px; }
+            .welcome-title { font-size: 36px; }
+            .welcome-subtitle { font-size: 18px; }
+            .kitty-welcome { font-size: 45px; }
+            .btn-primary { padding: 14px 40px; font-size: 18px; }
+            .letter-card { padding: 25px; }
+            .letter-content { font-size: 14px; line-height: 1.7; }
+        }
+
+        @media (max-width: 480px) {
+            .letter-card { padding: 20px; }
+            .letter-content { font-size: 13px; line-height: 1.6; }
+        }
+    </style>
 </head>
 <body>
-    <!-- MENU -->
-    <div id="menu" class="screen active">
-        <h1>💖 My Special App 💖</h1>
-        <button onclick="showScreen('letter')">Open Letter ✉️</button>
-        <button onclick="showScreen('game')">Play Memory Game 🎮</button>
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <div id="welcome" class="screen active">
+        <div class="welcome-content">
+            <div class="kitty-welcome">😺</div>
+            <div class="welcome-emoji">💝</div>
+            <h1 class="welcome-title">Hello Saraaaa❤️</h1>
+            <p class="welcome-subtitle">Something Special for You ♥</p>
+            <button class="btn-primary" onclick="showScreen('menu')">Open Gift 🎁</button>
+        </div>
     </div>
 
-    <!-- LETTER -->
-    <div id="letter" class="screen">
-        <button class="back-btn" onclick="showScreen('menu')">✕</button>
-        <div class="letter-container">
-            <!-- Envelope -->
-            <div class="envelope" onclick="openLetter()">
-                <div class="envelope-flap"></div>
-                <div class="envelope-body">💌</div>
+    <div id="menu" class="screen">
+        <div class="menu-container">
+            <div class="menu-header">
+                <div class="kitty-menu">🐱</div>
+                <h1 class="menu-title"> Meri Jaaaaaaaaaaaaannnnnnnn❤️</h1>
+                <p class="menu-subtitle">Choose Your Adventure</p>
             </div>
 
-            <!-- Letter inside -->
-            <div class="letter-card" id="letterCard">
-                <div class="letter-kitty">😻</div>
-                <div class="letter-title">Meri Bacchiii♥️</div>
-                <div class="letter-content" id="letterContent">
-Saraaaa♥️
-Kal raat jo hua uske baare mein main soch raha tha aur mujhe yeh feel hua ki main bhi galat tha...
-I Lykeeeeeeeeeeeeeeeee Uuuuuuuuuuuuuuuuuuhhhhhhhhhhhhhhhhhhhhhh Meri Jaaaaaaaaaaaaaaaaaaaaaaaannnnnnnnnnnnnn❤️💋
-                </div>
-                <div class="letter-signature">With all my love,<br>Sayed Asif</div>
+            <div class="menu-card" onclick="showScreen('letter')">
+                <div class="menu-card-icon">💌</div>
+                <h3 class="menu-card-title">Love Letter</h3>
+                <p class="menu-card-desc">Words straight from my heart</p>
+            </div>
+
+            <div class="menu-card" onclick="showScreen('moments')">
+                <div class="menu-card-icon">✨</div>
+                <h3 class="menu-card-title">Flip the Feelings</h3>
+                <p class="menu-card-desc">Discover hidden emotions</p>
+            </div>
+
+            <div class="menu-card" onclick="showScreen('playlist')">
+                <div class="menu-card-icon">🎵</div>
+                <h3 class="menu-card-title">Our Playlist</h3>
+                <p class="menu-card-desc">Songs dedicated to you</p>
+            </div>
+
+            <div class="menu-card" onclick="showScreen('game')">
+                <div class="menu-card-icon">🎮</div>
+                <h3 class="menu-card-title">Memory Game</h3>
+                <p class="menu-card-desc">Match the hearts & have fun</p>
             </div>
         </div>
     </div>
 
-    <!-- GAME -->
+    <div id="letter" class="screen">
+        <button class="back-btn" onclick="showScreen('menu')">✕</button>
+        <div class="letter-container">
+            <div class="letter-card">
+                <div class="letter-kitty">😻</div>
+                <div class="letter-hearts">
+                    <span>💕</span>
+                    <span>💕</span>
+                </div>
+                <h2 class="letter-title"> Meri Bacchiii♥️</h2>
+                <div class="letter-content">Saraaaa♥️
+Kal raat jo hua uske baare mein main soch raha tha aur mujhe yeh feel hua ki main bhi galat tha tumne aaj call karke sorry bola lekin mujhe bhi sorry kehna hai shayad main thoda zyada rude ho gaya tha jab mujhe bas shant rehna chahiye tha mujhe tumse ladna bilkul pasand nahi hai kyunki har baar jab hum door hote hain lagta hai jaise kuch andar se adhura ho gaya ho
+
+Tum waise hi rare ho jaise duniya mein bas ek hi misal ho sirf tumhara chehra nahi tumhari aankhon ka sukoon tumhare words ka warmth sab kuch mujhe feel karata hai ki main kitna lucky hoon tumhe dekh kar sirf attraction nahi hota ek gehra connection hota hai ek aisi feeling jo dil ke andar tak utar jaati hai tum meri calmness bhi ho aur meri madness bhi tumhe dekh kar dil ka beast jaag jaata hai lekin tumhare paas rehkar wo beast bhi peaceful ho jaata hai
+
+Main seriously blessed hoon Sara tum meri life ki sabse khoobsurat reality ho main promise karta hoon aage se zyada samjhdari aur pyaar se baat karunga main hamesha tumhe choose karunga har baar bina ego ke bina gusse ke bas dil se
+
+<br><br>
+I Lykeeeeeeeeeeeeeeeee Uuuuuuuuuuuuuuuuuuuuuuuuuhhhhhhhhhhhhhhhhhhhhhh Meri Jaaaaaaaaaaaaaaaaaaaaaaaannnnnnnnnnnnnn❤️💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋</div>
+                <div class="letter-signature">With all my love,
+Yours sincerely,
+Sayed Asif</div>
+                <div class="letter-footer">
+                    <span>💕</span>
+                    <span>💜</span>
+                    <span>💕</span>
+                    <span>😽</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="moments" class="screen">
+        <button class="back-btn" onclick="showScreen('menu')">✕</button>
+        <div class="menu-container">
+            <div class="moments-header">
+                <div class="kitty-menu">🐈</div>
+                <h2 class="moments-title">Special Moments</h2>
+                <p class="moments-subtitle">Tap to flip & discover ✨</p>
+            </div>
+
+            <div class="moment-card" onclick="this.classList.toggle('flipped')">
+                <div class="moment-card-inner">
+                    <div class="moment-front">
+                        <div class="moment-icon">😸</div>
+                        <p class="moment-text">Tumhra naam hi sukoon hai</p>
+                        <p class="moment-hint">Tap to flip! 👆</p>
+                    </div>
+                    <div class="moment-back bg-yellow">
+                        <p class="moment-back-text"> Jab bhi tumhra naam leta hoon na Saraaaa❤️ dil ek ajeeb si raahat mehsoos karta hai jaise duniya ruk gayi ho aur sirf hum dono reh gaye ho</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="moment-card" onclick="this.classList.toggle('flipped')">
+                <div class="moment-card-inner">
+                    <div class="moment-front">
+                        <div class="moment-icon">😻</div>
+                        <p class="moment-text">Tumhre bina sab adhoora lagta hai</p>
+                        <p class="moment-hint">Tap to flip! 👆</p>
+                    </div>
+                    <div class="moment-back bg-pink">
+                        <p class="moment-back-text">Tumhra na hona jaise saansein ruk jaayein sab theek hota hai bas tum mere paas ho toh duniya perfect lagti hai</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="moment-card" onclick="this.classList.toggle('flipped')">
+                <div class="moment-card-inner">
+                    <div class="moment-front">
+                        <div class="moment-icon">😽</div>
+                        <p class="moment-text">Tumhra touch mein ek jaadu hai</p>
+                        <p class="moment-hint">Tap to flip! 👆</p>
+                    </div>
+                    <div class="moment-back bg-blue">
+                        <p class="moment-back-text">Jab tumhra haath mere haath mein aata hai na Saraaaa❤️ toh lagta hai jaise har lamha zinda ho gaya ho jaise har saans tujhme basi ho</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="moment-card" onclick="this.classList.toggle('flipped')">
+                <div class="moment-card-inner">
+                    <div class="moment-front">
+                        <div class="moment-icon">🐱</div>
+                        <p class="moment-text">Tu meri sabse khoobsurat aadat hai</p>
+                        <p class="moment-hint">Tap to flip! 👆</p>
+                    </div>
+                    <div class="moment-back bg-purple">
+                        <p class="moment-back-text">Har din tum meri aadat banti ja rahi hai woh aadat jise chhodna mushkil nahi balki namumkin hai Saraaaa❤️</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="playlist" class="screen">
+        <button class="back-btn" onclick="showScreen('menu')">✕</button>
+        <div class="menu-container">
+            <div class="playlist-header">
+                <div class="playlist-kitty">🎧😺</div>
+                <h2 class="playlist-title">Playlist For You</h2>
+                <p class="playlist-subtitle">Songs dedicated to u</p>
+            </div>
+
+            <div class="song-card">
+                <div class="song-content">
+                    <div class="song-icon">🎵</div>
+                    <div class="song-info">
+                        <h3>Shiddat</h3>
+                        <p>Saraaaa♥️</p>
+                    </div>
+                </div>
+                <div class="song-quote">"For Uuhhh💋"</div>
+                <iframe width="100%" height="80" style="margin-top: 10px; border-radius: 8px; border: none;" 
+                        src="https://www.youtube.com/embed/iSo9l950QLo?si=zrDGjksZnXu4rE83" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="song-card">
+                <div class="song-content">
+                    <div class="song-icon">🎵</div>
+                    <div class="song-info">
+                        <h3>Jeene laga hu</h3>
+                        <p>Saraaaa♥️</p>
+                    </div>
+                </div>
+                <div class="song-quote">"For Uuhhh💋"</div>
+                <iframe width="100%" height="80" style="margin-top: 10px; border-radius: 8px; border: none;" 
+                        src="https://www.youtube.com/embed/vP_lgaVhb1Y?si=I7GDoj8YgudINJMw" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="song-card">
+                <div class="song-content">
+                    <div class="song-icon">🎵</div>
+                    <div class="song-info">
+                        <h3>Main agar kaho</h3>
+                        <p>Saraaaa♥️</p>
+                    </div>
+                </div>
+                <div class="song-quote">"For Uuhhh♥️"</div>
+                <iframe width="100%" height="80" style="margin-top: 10px; border-radius: 8px; border: none;" 
+                        src="https://www.youtube.com/embed/DAYszemgPxc?si=4c7qqbdDRZe6-8M7" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="song-card">
+                <div class="song-content">
+                    <div class="song-icon">🎵</div>
+                    <div class="song-info">
+                        <h3>Labon ko</h3>
+                        <p>Saraaaa♥️</p>
+                    </div>
+                </div>
+                <div class="song-quote">"For Uuhhh💋"</div>
+                <iframe width="100%" height="80" style="margin-top: 10px; border-radius: 8px; border: none;" 
+                        src="https://www.youtube.com/embed/-FP2Cmc7zj4?si=NK8g3IF4ivmiwb-u" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
     <div id="game" class="screen">
         <button class="back-btn" onclick="showScreen('menu')">✕</button>
         <div class="game-container">
             <div class="game-header">
                 <div class="game-kitty">🎮😺</div>
                 <h2 class="game-title">Love Memory Game</h2>
-                <p class="game-subtitle">Match the hearts & win!</p>
+                <p class="game-subtitle">Match the pairs & win!</p>
             </div>
 
             <div class="win-message" id="winMessage">
                 <h3>Congratulations! 🎉</h3>
-                <div class="win-emoji">💖💝💘</div>
+                <div class="win-emoji">😻💝</div>
                 <p>You found all the matches!<br>You're amazing, just like always! ❤️</p>
             </div>
 
@@ -67,10 +978,140 @@ I Lykeeeeeeeeeeeeeeeee Uuuuuuuuuuuuuuuuuuhhhhhhhhhhhhhhhhhhhhhh Meri Jaaaaaaaaaa
             </div>
 
             <div class="game-board" id="gameBoard"></div>
+
             <button class="reset-btn" onclick="resetGame()">🔄 New Game</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Game variables
+        let cards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+        let canFlip = true;
+
+        const emojis = ['💕', '💖', '💗', '💓', '💝', '💘', '💞', '❤️'];
+
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const hearts = ['💕', '💖', '💗', '💓', '💝'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Screen navigation
+        function showScreen(screenId) {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            
+            // Initialize game when game screen is shown
+            if (screenId === 'game' && cards.length === 0) {
+                initGame();
+            }
+        }
+
+        // Initialize game
+        function initGame() {
+            const gameBoard = document.getElementById('gameBoard');
+            gameBoard.innerHTML = '';
+            cards = [];
+            flippedCards = [];
+            matchedPairs = 0;
+            moves = 0;
+            canFlip = true;
+            
+            // Create pairs
+            const cardEmojis = [...emojis, ...emojis];
+            cardEmojis.sort(() => Math.random() - 0.5);
+            
+            cardEmojis.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.dataset.emoji = emoji;
+                card.dataset.index = index;
+                card.innerHTML = `
+                    <div class="card-back">❓</div>
+                    <div class="card-front">${emoji}</div>
+                `;
+                card.onclick = () => flipCard(card);
+                gameBoard.appendChild(card);
+                cards.push(card);
+            });
+            
+            updateStats();
+            document.getElementById('winMessage').classList.remove('show');
+        }
+
+        // Flip card
+        function flipCard(card) {
+            if (!canFlip || card.classList.contains('flipped') || card.classList.contains('matched')) {
+                return;
+            }
+            
+            card.classList.add('flipped');
+            flippedCards.push(card);
+            
+            if (flippedCards.length === 2) {
+                canFlip = false;
+                moves++;
+                updateStats();
+                
+                setTimeout(() => {
+                    checkMatch();
+                }, 600);
+            }
+        }
+
+        // Check for match
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.emoji === card2.dataset.emoji) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                updateStats();
+                
+                if (matchedPairs === emojis.length) {
+                    setTimeout(() => {
+                        document.getElementById('winMessage').classList.add('show');
+                    }, 500);
+                }
+            } else {
+                setTimeout(() => {
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                }, 400);
+            }
+            
+            flippedCards = [];
+            canFlip = true;
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('moves').textContent = moves;
+            document.getElementById('matches').textContent = `${matchedPairs}/${emojis.length}`;
+        }
+
+        // Reset game
+        function resetGame() {
+            initGame();
+        }
+
+        // Initialize
+        createFloatingHearts();
+    </script>
 </body>
 </html>
